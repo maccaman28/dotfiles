@@ -1,0 +1,15 @@
+font:
+  normal:
+    family: "Terminus"
+    style: Regular
+  bold:
+    family: "Terminus"
+    style: Bold
+  italic:
+    family: "Terminus"
+    style: Italic
+  bold_italic:
+    family: "Terminus"
+    style: Bold_Italic
+
+  size: 12

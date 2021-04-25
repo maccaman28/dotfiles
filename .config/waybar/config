@@ -1,0 +1,198 @@
+// -*- mode: json -*-
+[
+{
+	"layer": "bottom",
+	"position": "bottom",
+	"height": 45,
+	"modules-left": [
+		// "custom/menu",
+		"custom/separator",
+		"sway/workspaces",
+		"custom/separator",
+		// "idle_inhibitor",
+		"custom/separator",
+		"wlr/taskbar",
+	],
+	"modules-center": [
+		"custom/separator",
+		"custom/media",
+	],
+	"modules-right": [
+		"sway/mode",
+		"custom/separator",
+        	"pulseaudio",
+		// "backlight",
+		// "battery",
+		"custom/separator",
+		"disk",
+		// "disk#zfs",
+		"memory",
+		"cpu",
+		"temperature",
+		"custom/separator",
+		"tray",
+		"custom/separator",
+		"clock",
+		"network",
+		"custom/shutdown",
+	],
+    "custom/menu": {
+        "format": "",
+        "on-click": "wofi --show drun"
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "icon-size": 20,
+	"spacing": 7,
+        "icon-theme": "Papirus",
+        "tooltip-format": "{title}",
+        "on-click": "activate",
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "interval": 30,
+        "format-icons": {
+            "enabled": " [X]",
+            "disabled": " [ ]"
+        },
+        "tooltip-format": "{status}",
+        "on-click": "blueberry"
+    },
+    "network": {
+        "tooltip-format": "{essid}",
+        "format-wifi": "  {signalStrength}% ",
+        "format-ethernet": "",
+        "format-linked": "",
+        "format-disconnected": " none",
+        // "on-click": "nm-connection-editor"
+    },
+	"sway/workspaces": {
+		"disable-scroll": true,
+ 		"all-outputs": true,
+ 		"format": "{name}",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+	    "10": []
+        },
+		"format-icons": {
+			"urgent": "",
+			"focused": "",
+			"default": ""
+		}
+	},
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		}
+	},
+	"sway/mode": {
+		"format": "{}"
+	},
+	"backlight": {
+		"interval": 5,
+		"format": "{icon}",
+		"format-alt": "{percent}% {icon}",
+		"format-alt-click": "click-right",
+		"format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
+		"on-scroll-down": "brightnessctl -c backlight set +5%",
+		"on-scroll-up": "brightnessctl -c backlight set 5%-"
+	},
+	"tray": {
+		"icon-size": 20,
+		"spacing": 7
+	}, 
+	"clock": {
+		"format": "{:%H:%M}",
+		"tooltip-format": "{:%a %d %b %H:%M}",
+		"tooltip": true
+	},
+	"pulseaudio": {
+		"format": "{icon} {volume}%",
+		"format-bluetooth": "{icon} {volume}%",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": [
+				"",
+				"",
+				""
+			]
+		},
+	},
+	"battery": {
+		"states": {
+			"good": 100,
+			"warning": 30,
+			"critical": 15
+		},
+		"format": "{icon} {capacity}%",
+		"format-icons": [
+			"",
+			"",
+			"",
+			"",
+			""
+		]
+	},
+	"disk": {
+		"interval": 30,
+		"format": "root: {free}",
+		"path": "/"
+	},
+	"disk#zfs": {
+		"interval": 30,
+		"format": "media: {free}",
+		"path": "/mnt/zfs/media"
+	},
+	"memory": {
+		"interval": 30,
+		"format": "{used:0.1f}G/{total:0.1f}G "
+	},
+	"cpu": {
+		"interval": 5,
+		"format": "{usage}% ",
+		"max-length": 10
+	},
+	"temperature": {
+		// "thermal-zone": 2,
+		"hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+		// "critical-threshold": 80,
+		// "format-critical": "{temperatureC}°C ",
+		"format": "{temperatureC}°C "
+	},
+	"custom/separator": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/shutdown": {
+		"format": "",
+		"on-click": "wlogout -p layer-shell -r 50",
+	},
+	"custom/media": {
+        	"format": "{icon} {}",
+        	"return-type": "json",
+        	"max-length": 50,
+        	"format-icons": {
+            		"spotify": "",
+            		"default": "🎜"
+        	},
+        	"escape": true,
+        	"exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        	// "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    }
+}
+]

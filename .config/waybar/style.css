@@ -1,0 +1,175 @@
+/* Polar Night */
+@define-color nord0 #2e3440;
+@define-color nord1 #3b4252;
+@define-color nord2 #434c5e;
+@define-color nord3 #4c566a;
+
+/* Snow Storm */
+@define-color nord4 #d8dee9;
+@define-color nord5 #e5e9f0;
+@define-color nord6 #eceff4;
+
+/* Frost */
+@define-color nord7 #8fbcbb;
+@define-color nord8 #88c0d0;
+@define-color nord9 #81a1c1;
+@define-color nord10 #5e81ac;
+
+/* Aurora */
+@define-color nord11 #bf616a;
+@define-color nord12 #d08770;
+@define-color nord13 #ebcb8b;
+@define-color nord14 #a3be8c;
+@define-color nord15 #b48ead;
+
+/* Other Colors */
+@define-color spotify-green #66cc99;
+
+* {
+	font-size: 13px;
+	font-family: Hack, "Font Awesome 5 Free";
+}
+
+:hover {
+    border: 1px solid @nord15;
+	background: @nord2;
+}
+
+window#waybar {
+	color: @nord8;
+	background: @nord0;
+	opacity: 0.7;
+}
+
+/* Base styling for modules */
+#workspaces,
+#mode,
+#window,
+#idle_inhibitor,
+#bluetooth,
+#pulseaudio,
+#clock,
+#battery,
+#backlight,
+#disk,
+#memory,
+#cpu,
+#temperature,
+#network,
+#custom-separator,
+#custom-shutdown,
+#custom-menu,
+#taskbar,
+#tray {
+	padding: 1px 10px 0px 10px;
+	margin: 5px 0px 5px 0px;
+	background: @nord2;
+    	border-radius: 5px;
+}
+
+/* Grouping */
+
+/* left modules */
+#disk,
+#clock {
+	border-radius: 5px 0px 0px 5px;
+}
+
+/* middle modules */
+#disk.zfs,
+#network,
+#backlight,
+#battery,
+#cpu,
+#memory {
+	border-radius: 0px 0px 0px 0px;
+}
+
+/* right modules */
+#temperature,
+#custom-shutdown {
+	border-radius: 0px 5px 5px 0px;
+}
+
+/* Customization */
+
+#mode {
+	color: @nord11;
+}
+
+#custom-separator {
+	opacity: 0;
+	padding: 0px;
+}
+
+#custom-menu {
+    margin-left: 5px;
+}
+
+#custom-shutdown {
+	margin-right: 5px;
+}
+
+#custom-media {
+    color: @spotify-green;
+    min-width: 100px;
+}
+
+#pulseaudio {
+	color: @nord14;
+}
+
+#disk {
+	color: @nord11;
+}
+
+#memory {
+	color: @nord12;
+}
+
+#cpu {
+	color: @nord13;
+}
+
+#temperature {
+	color: @nord15;
+}
+
+/* Workspaces */
+
+#workspaces {
+    padding: 0px;
+}
+
+#workspaces button {
+	color: @nord7;
+	margin: 0;
+	padding: 1px 5px 0px 5px;
+}
+#workspaces button.focused {
+    border: 1px solid @nord14;
+}
+
+#workspaces button.urgent {
+	background-color: @nord11;
+}
+
+/* Battery */
+
+#battery.warning {
+	color: @nord13;
+}
+
+#battery.critical {
+	color: @nord12;
+}
+
+/* Taskbar */
+
+#taskbar button {
+	color: @nord7;
+	padding: 5px 3px 1px 3px;
+}
+#taskbar button.active {
+    border: 1px solid @nord14;
+}
