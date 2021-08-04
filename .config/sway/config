@@ -1,16 +1,18 @@
-include ~/.config/sway/colors-sway/
+#xwayland disable
 
-exec systemctl --user import-environemnt DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
 	dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 
+exec /usr/bin/gammastep
+exec /usr/bin/autotiling
+exec /usr/bin/polkit-dumb-agent
 exec /usr/bin/steam-native -silent
-exec /usr/bin/wal -R
 
 set $mod Mod4
-set $menu j4-dmenu-desktop --dmenu='bemenu -n -i -H 20 --tb "#2e3440" --tf "#8fbcbb" --fb "#434c5e" --ff "#a3be8c" --nb "#2e3440" --nf "#8fbcbb" --hb "#2e3440" --hf "#bf616a" --fn "FontAwesome5Free 10"' --term='alacritty'
+set $menu j4-dmenu-desktop --dmenu='bemenu -n -i -H 20 --tb "#2e3440" --tf "#8fbcbb" --fb "#434c5e" --ff "#a3be8c" --nb "#2e3440" --nf "#8fbcbb" --hb "#2e3440" --hf "#bf616a" --fn "Font\ Awesome\ 5\ Free 10"' --term='alacritty'
 
 set $left h
 set $down j
@@ -37,6 +39,8 @@ set $opacity 0.7
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
+for_window [app_id="Chromium"] opacity 1
+
 gaps inner 5
 gaps outer 5
 gaps horizontal 5
@@ -46,11 +50,14 @@ gaps right 5
 gaps bottom 5
 gaps left 5
 
+font "Font Awesome 5 Free" Regular 10
+
 output "*" bg /home/dylan/Pictures/wallpaper.jpg fill
 default_border pixel 1
-bindsym XF86AudioRaiseVolume exec amixer sset Master 1%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-bindsym XF86AudioLowerVolume exec amixer sset Master 1%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
-bindsym XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
+
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 1%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 1%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $SWAYSOCK.wob
+bindsym XF86AudioMute exec amixer -D pulse sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $SWAYSOCK.wob
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
