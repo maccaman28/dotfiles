@@ -4,7 +4,10 @@ exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
 	dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
-exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob --anchor top --margin 450 --width 450 --background-color "#2e3440b3" --border-color "#8fbcbbb3" --bar-color "#434c5eb3"
+
+exec eval $(gnome-keyring-daemon --start)
+exec export SSH_AUTH_SOCK
 
 exec /usr/bin/gammastep
 exec /usr/bin/autotiling
@@ -12,7 +15,7 @@ exec /usr/bin/polkit-dumb-agent
 exec /usr/bin/steam-native -silent
 
 set $mod Mod4
-set $menu j4-dmenu-desktop --dmenu='bemenu -n -i -H 20 --tb "#2e3440" --tf "#8fbcbb" --fb "#434c5e" --ff "#a3be8c" --nb "#2e3440" --nf "#8fbcbb" --hb "#2e3440" --hf "#bf616a" --fn "Font\ Awesome\ 5\ Free 10"' --term='alacritty'
+set $menu j4-dmenu-desktop --dmenu='bemenu -n -i -H 20 --tb "#2e3440" --tf "#8fbcbb" --fb "#434c5e" --ff "#a3be8c" --nb "#2e3440" --nf "#8fbcbb" --hb "#2e3440" --hf "#bf616a" --fn "FontAwesome 10"' --term='alacritty'
 
 set $left h
 set $down j
@@ -50,7 +53,7 @@ gaps right 5
 gaps bottom 5
 gaps left 5
 
-font "Font Awesome 5 Free" Regular 10
+font FontAwesome Regular 10
 
 output "*" bg /home/dylan/Pictures/wallpaper.jpg fill
 default_border pixel 1
@@ -67,7 +70,7 @@ bindsym $mod+Print exec grim -g "$(slurp)" ~/Pictures/screenshots/$(date +'%Y-%m
 
 bindsym Control+Alt+t exec $term
 bindsym $mod+q kill
-bindsym $mod+d exec $menu
+bindsym $mod+d exec pidof j4-dmenu-desktop || $menu
 bindsym $mod+Shift+r reload
 bindsym $mod normal
 bindsym $mod+Shift+q exec wlogout
@@ -136,4 +139,3 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
